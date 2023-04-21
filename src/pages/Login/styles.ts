@@ -47,9 +47,11 @@ export const Button = styled.button<ButtonProps>`
   border-radius: 0.3rem;
   padding: 0.3rem 0;
   transition: 0.4s;
+  
   &:hover {
     background: ${({ theme }) => lighten(0.07, theme.pink)};
   }
+  
   ${({ outlined }) =>
     outlined &&
     css`
@@ -67,6 +69,7 @@ export const Button = styled.button<ButtonProps>`
 export const OrContainer = styled.section`
   width: 100%;
   margin: 1rem 0;
+  
   div {
     width: 100%;
     height: 3px;
@@ -77,6 +80,7 @@ export const OrContainer = styled.section`
     z-index: 1;
     transform: translateY(-50%);
   }
+  
   p {
     font-size: 0.9rem;
     text-transform: uppercase;

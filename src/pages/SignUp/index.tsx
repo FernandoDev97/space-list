@@ -1,10 +1,10 @@
 import {
-  Button,
   Container,
-  FormContainer,
-  OrContainer,
   PageTitle,
-} from "./styles";
+  FormContainer,
+  Button,
+  OrContainer,
+} from "../Login/styles";
 import Logo from "../../assets/logo.svg?component";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
@@ -27,7 +27,7 @@ const schema = Yup.object().shape({
   password: Yup.string().required("Password is a required field"),
 });
 
-export function Login() {
+export function SignUp() {
   const {
     control,
     handleSubmit,
@@ -43,7 +43,7 @@ export function Login() {
   return (
     <Container>
       <Logo />
-      <PageTitle>Login</PageTitle>
+      <PageTitle>Sign Up</PageTitle>
       <FormContainer autoComplete="false" onSubmit={handleSubmit(handleLogin)}>
         <HookFormInput
           icon={<HiOutlineMail />}
@@ -63,15 +63,13 @@ export function Login() {
           type="password"
           error={errors.password && errors.password.message}
         />
-        <Button type="submit">Login</Button>
+        <Button type="submit">Sign Up</Button>
         <OrContainer>
           <div>
             <p>Or</p>
           </div>
         </OrContainer>
-        <Button outlined>
-          Sign up
-        </Button>
+        <Button outlined>Login</Button>
       </FormContainer>
     </Container>
   );
