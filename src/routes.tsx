@@ -9,9 +9,9 @@ import { SignUp } from "./pages/SignUp";
 export function RoutesComponent() {
   return (
     <Routes>
-      {/* <Route path="/" element={<Home />} /> */}
+      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<SignUp />} />
+      <Route path="/signup" element={<SignUp />} />
     </Routes>
   )
 } 

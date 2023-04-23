@@ -11,6 +11,8 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { HookFormInput } from "../../components/HookFormInput";
 import { HiOutlineLockClosed, HiOutlineMail } from "react-icons/hi";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 interface FormData {
   email: string;
@@ -36,15 +38,19 @@ export function SignUp() {
     resolver: yupResolver(schema),
   });
 
-  async function handleLogin(form: FormData) {
-    console.log(form);
+  const {register} = useAuth()
+
+  async function handleSignUp(form: FormData) {
+    await register(form)
   }
+
+  const navigate = useNavigate()
 
   return (
     <Container>
       <Logo />
       <PageTitle>Sign Up</PageTitle>
-      <FormContainer autoComplete="false" onSubmit={handleSubmit(handleLogin)}>
+      <FormContainer autoComplete="false" onSubmit={handleSubmit(handleSignUp)}>
         <HookFormInput
           icon={<HiOutlineMail />}
           label="Email"
@@ -69,8 +75,8 @@ export function SignUp() {
             <p>Or</p>
           </div>
         </OrContainer>
-        <Button outlined>Login</Button>
       </FormContainer>
+      <Button onClick={() => navigate('/login')} outlined>Login</Button>
     </Container>
   );
 }
