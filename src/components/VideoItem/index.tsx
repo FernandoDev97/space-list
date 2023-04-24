@@ -3,21 +3,41 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { FaTrashAlt } from "react-icons/fa";
 import { RiAddCircleLine } from "react-icons/ri";
+import { useList } from "../../context/ListContent";
+
+export interface IVideo {
+  docId?: string;
+  id: string;
+  title: string;
+  thumbnail: string;
+  duration: string;
+  durationMs: number;
+}
 
 interface VideoProps {
   addMode?: boolean;
+  data: IVideo;
 }
 
-export function VideoItem({ addMode = false }: VideoProps) {
+export function VideoItem({data, addMode = false }: VideoProps) {
+
+  const { createListItem, list } = useList()
+
+  async function addCurrentVideo () {
+    await createListItem(data)
+  }
+
+  const alreadyExiste = list.some(video => video.id === data.id)
+
   return (
     <Container>
-      <Thumb imgUrl="https://mundoconectado.com.br/uploads/2022/05/25/25658/cacto.jpg" />
+      <Thumb imgUrl={data.thumbnail} />
       <Details>
-        <strong title="Titulo do video">Titulo do video</strong>
+        <strong title={data.title}>{data.title}</strong>
         <div>
           <div>
             {addMode ? (
-              <Button>
+              <Button onClick={addCurrentVideo} disabled={alreadyExiste}>
                 <RiAddCircleLine />
                 Add to list
               </Button>
@@ -33,7 +53,7 @@ export function VideoItem({ addMode = false }: VideoProps) {
           </div>
           <span>
             <AiOutlineClockCircle />
-            15:35
+            {data.duration}
           </span>
         </div>
       </Details>
