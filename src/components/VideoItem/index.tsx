@@ -21,10 +21,21 @@ interface VideoProps {
 
 export function VideoItem({data, addMode = false }: VideoProps) {
 
-  const { createListItem, list } = useList()
+  const { createListItem, deleteListItem, list } = useList()
 
   async function addCurrentVideo () {
     await createListItem(data)
+  }
+
+  async function handleDelete () {
+    if(!data?.docId) return;
+    await deleteListItem(data.docId)
+  }
+
+  function openVideo() {
+    chrome.tabs.create({
+      url: `http://www.youtube.com/watch?v=${data.id}`
+    })
   }
 
   const alreadyExiste = list.some(video => video.id === data.id)
@@ -44,10 +55,10 @@ export function VideoItem({data, addMode = false }: VideoProps) {
             ) : (
               <>
                 <Button>
-                  <BsFillPlayFill />
+                  <BsFillPlayFill onClick={openVideo}/>
                   Play
                 </Button>
-                <FaTrashAlt size={12} />
+                <FaTrashAlt size={12} onClick={handleDelete} />
               </>
             )}
           </div>
